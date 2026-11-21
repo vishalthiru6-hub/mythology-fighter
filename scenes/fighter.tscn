@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://d21inshejsd1q"]
+
+[ext_resource type="Script" uid="uid://cuww55mqge8la" path="res://scripts/fighter.gd" id="1_a4q2m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhyiw"]
+size = Vector2(60, 120)
+
+[node name="Fighter" type="CharacterBody2D" unique_id=1172908338]
+script = ExtResource("1_a4q2m")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1133128338]
+offset_left = -30.0
+offset_top = -120.0
+offset_right = 30.0
+color = Color(0, 1, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=690240513]
+position = Vector2(0, -60)
+shape = SubResource("RectangleShape2D_fhyiw")

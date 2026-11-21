@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bx1dj3ehhjhrp"]
+
+[ext_resource type="PackedScene" uid="uid://d21inshejsd1q" path="res://scenes/fighter.tscn" id="1_e05a3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhyiw"]
+size = Vector2(1152, 40)
+
+[node name="Arena" type="Node2D" unique_id=1980713926]
+
+[node name="floor" type="StaticBody2D" parent="." unique_id=2093129842]
+position = Vector2(576, 560)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor" unique_id=1427049142]
+shape = SubResource("RectangleShape2D_fhyiw")
+
+[node name="ColorRect" type="ColorRect" parent="floor" unique_id=620028980]
+offset_left = -576.0
+offset_top = -20.0
+offset_right = 576.0
+offset_bottom = 20.0
+color = Color(0.3284404, 0.14057314, 0.005036498, 1)
+
+[node name="Fighter" parent="." unique_id=1172908338 instance=ExtResource("1_e05a3")]
+position = Vector2(300, 400)
+
+[node name="Fighter2" parent="." unique_id=1578074060 instance=ExtResource("1_e05a3")]
+position = Vector2(850, 400)
+player_id = 2
+
+[node name="ColorRect" parent="Fighter2" index="0" unique_id=1133128338]
+color = Color(0, 0.99215686, 0, 1)
+
+[editable path="Fighter2"]
