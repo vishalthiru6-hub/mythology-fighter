@@ -5,6 +5,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fhyiw"]
 size = Vector2(60, 120)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ovse1"]
+size = Vector2(50, 40)
+
 [node name="Fighter" type="CharacterBody2D" unique_id=1172908338]
 script = ExtResource("1_a4q2m")
 
@@ -17,3 +20,16 @@ color = Color(0, 1, 1, 1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=690240513]
 position = Vector2(0, -60)
 shape = SubResource("RectangleShape2D_fhyiw")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1932159926]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=833884573]
+position = Vector2(55, -80)
+shape = SubResource("RectangleShape2D_ovse1")
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=1356847262]
+offset_left = -30.0
+offset_top = -140.0
+offset_right = 30.0
+offset_bottom = -130.0
+show_percentage = false
