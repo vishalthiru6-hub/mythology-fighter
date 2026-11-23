@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal knocked_out(id)
+
 @export var player_id := 1
 @export var speed := 250.0
 @export var jump_velocity := -500.0
@@ -10,6 +12,7 @@ var health := 100
 var facing := 1.0
 var is_attacking := false
 var is_ko := false
+var can_fight := true
 var already_hit := []
 
 @onready var hitbox = $Hitbox
@@ -26,7 +29,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	if is_ko:
+	if is_ko or not can_fight:
 		velocity.x = 0
 		move_and_slide()
 		return
@@ -63,10 +66,11 @@ func punch():
 	is_attacking = false
 
 func take_damage(amount):
-	if is_ko:
+	if is_ko or not can_fight:
 		return
 	health = maxi(health - amount, 0)
 	health_bar.value = health
 	if health == 0:
 		is_ko = true
 		$ColorRect.color = Color.DIM_GRAY
+		knocked_out.emit(player_id)
