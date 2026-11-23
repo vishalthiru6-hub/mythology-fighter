@@ -6,11 +6,13 @@ signal knocked_out(id)
 @export var speed := 250.0
 @export var jump_velocity := -500.0
 @export var punch_damage := 10
+@export var block_multiplier := 0.2
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var health := 100
 var facing := 1.0
 var is_attacking := false
+var is_blocking := false
 var is_ko := false
 var can_fight := true
 var already_hit := []
@@ -18,6 +20,7 @@ var already_hit := []
 @onready var hitbox = $Hitbox
 @onready var hitbox_shape = $Hitbox/CollisionShape2D
 @onready var health_bar = $HealthBar
+@onready var body_rect = $ColorRect
 
 func _ready():
 	health_bar.show_percentage = false
@@ -30,13 +33,18 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 
 	if is_ko or not can_fight:
+		is_blocking = false
+		body_rect.modulate = Color.WHITE
 		velocity.x = 0
 		move_and_slide()
 		return
 
 	var dir = Input.get_axis("p%d_left" % player_id, "p%d_right" % player_id)
 
-	if is_attacking:
+	is_blocking = is_on_floor() and not is_attacking and Input.is_action_pressed("p%d_block" % player_id)
+	body_rect.modulate = Color(0.5, 0.5, 0.5) if is_blocking else Color.WHITE
+
+	if is_attacking or is_blocking:
 		velocity.x = 0
 	else:
 		velocity.x = dir * speed
@@ -68,9 +76,12 @@ func punch():
 func take_damage(amount):
 	if is_ko or not can_fight:
 		return
+	if is_blocking:
+		amount = roundi(amount * block_multiplier)
 	health = maxi(health - amount, 0)
 	health_bar.value = health
 	if health == 0:
 		is_ko = true
-		$ColorRect.color = Color.DIM_GRAY
+		body_rect.color = Color.DIM_GRAY
+		body_rect.modulate = Color.WHITE
 		knocked_out.emit(player_id)
