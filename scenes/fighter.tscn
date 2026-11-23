@@ -8,6 +8,9 @@ size = Vector2(60, 120)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ovse1"]
 size = Vector2(50, 40)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndsms"]
+size = Vector2(100, 140)
+
 [node name="Fighter" type="CharacterBody2D" unique_id=1172908338]
 script = ExtResource("1_a4q2m")
 
@@ -33,3 +36,17 @@ offset_top = -140.0
 offset_right = 30.0
 offset_bottom = -130.0
 show_percentage = false
+
+[node name="NameLabel" type="Label" parent="." unique_id=1384407266]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="SpecialHitbox" type="Area2D" parent="." unique_id=1365506605]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpecialHitbox" unique_id=451380924]
+position = Vector2(100, -70)
+shape = SubResource("RectangleShape2D_ndsms")
+
+[node name="LightningFX" type="ColorRect" parent="." unique_id=1150904923]
+offset_right = 40.0
+offset_bottom = 40.0

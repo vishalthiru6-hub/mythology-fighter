@@ -2,8 +2,8 @@ extends Node2D
 
 @export var round_time := 60
 
-@onready var p1 = $Fighter
-@onready var p2 = $Fighter2
+@onready var p1 = $Thor
+@onready var p2 = $Anubis
 @onready var timer_label = $UI/TimerLabel
 @onready var message_label = $UI/MessageLabel
 
